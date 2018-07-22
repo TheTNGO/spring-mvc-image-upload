@@ -15,8 +15,8 @@
     <br />
     <input type="submit" value="Upload">
   </form>
-  <span th:if="${flashMessage}">
-    ${flashMessage} <!-- here would be a message with a result of processing -->
+  <span th:if="${flashMessage}" th:text="${flashMessage}">
+  	<!-- here would be a message with a result of processing -->
   </span>
 </body>
 </html>

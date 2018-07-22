@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +44,8 @@ public class ImageUploadController {
 	@PostMapping("/uploadImage")
 	public String uploadImage(
 		@RequestParam("imageName") String imageName,
-		@RequestParam("imageFile") MultipartFile imageFile
+		@RequestParam("imageFile") MultipartFile imageFile,
+		Model model
 	) throws Exception {
 		
 		// TODO: do something with `imageName`
@@ -62,7 +64,9 @@ public class ImageUploadController {
 		File fileUpload = new File(getUploadDirectory(), fileName); // TODO: ensure it doesn't already exist
 		imageFile.transferTo(fileUpload);		
 		
-		return "redirect:/";
+		model.addAttribute("flashMessage", "File uploaded successfully.");
+		
+		return "index";
 	}
 	
 	@GetMapping("/image/{file}")
